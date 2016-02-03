@@ -29,6 +29,17 @@ exports.serveAssets = function(response, asset, callback) {
   fs.readFile(fullPath, callback);
 };
 
+exports.collectData = function(request, callback) {
+  var data = '';
+  request.on('data', function(chunk) {
+    data += chunk;
+  });
+  request.on('end', function(){
+    data = data.split('url=')[1];
+    callback(data + "\n");
+  });
+};
+
 
 
 // As you progress, keep thinking about what helper functions you can put here!

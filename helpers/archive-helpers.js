@@ -22,20 +22,38 @@ exports.initialize = function(pathsObj) {
   });
 };
 
+exports.addUrlToList = function(url, callback) {
+  fs.appendFile(exports.paths.list, url, function(err) {
+    if (err) throw err;
+    callback();
+  });
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
+// exports.readListOfUrls = function() {
+// };
 
-exports.readListOfUrls = function() {
-};
+// exports.isUrlInList = function() {
+// };
 
-exports.isUrlInList = function() {
-};
+// exports.addUrlToList = function() {
+// };
 
-exports.addUrlToList = function() {
-};
+// exports.isUrlArchived = function() {
+// };
 
-exports.isUrlArchived = function() {
-};
-
-exports.downloadUrls = function() {
-};
+// exports.downloadUrls = function() {
+// };

@@ -9,7 +9,7 @@ exports.handleRequest = function (request, response) {
     requestedUrl = '/index.html';
   }
 
-  if (true) {
+  if (request.method === 'GET') {
     httphelpers.serveAssets(response, requestedUrl, function(err, data){
       if (err) {
         console.log(err);
@@ -20,8 +20,20 @@ exports.handleRequest = function (request, response) {
       response.end(data);
 
     });
-  } 
-  else {
+  } else if (request.method === 'POST') {
+    httphelpers.collectData(request, function(message) {
+      archive.addUrlToList(message, function() {
+        response.writeHead(302, httphelpers.headers);
+        response.end();      
+      });      
+    });
+
+
+
+
+
+
+  } else {
     res.end(archive.paths.list);
   }
 };

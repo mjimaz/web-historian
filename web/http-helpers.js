@@ -15,7 +15,16 @@ exports.serveAssets = function(response, asset, callback) {
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
 
-  var fullPath = archive.paths.siteAssets + asset;
+  var fullPath = '';
+  var staticExtensions = ['.html', '.css', '.js'];
+  var websiteExtensions = ['.com'];
+
+  if(staticExtensions.indexOf(path.extname(asset)) !== -1){
+    fullPath = archive.paths.siteAssets + asset;
+  }else if(websiteExtensions.indexOf(path.extname(asset)) !== -1){
+    fullPath = archive.paths.archivedSites + asset;
+  }
+
   console.log(fullPath);
   fs.readFile(fullPath, callback);
 };

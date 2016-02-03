@@ -9,7 +9,7 @@ exports.handleRequest = function (request, response) {
     requestedUrl = '/index.html';
   }
 
-  if (requestedUrl === '/index.html') {
+  if (true) {
     httphelpers.serveAssets(response, requestedUrl, function(err, data){
       if (err) {
         console.log(err);
@@ -20,7 +20,8 @@ exports.handleRequest = function (request, response) {
       response.end(data);
 
     });
-  } else {
+  } 
+  else {
     res.end(archive.paths.list);
   }
 };

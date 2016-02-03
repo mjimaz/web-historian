@@ -9,11 +9,15 @@ exports.headers = headers = {
   "access-control-max-age": 10, // Seconds.
   'Content-Type': "text/html"
 };
-
-exports.serveAssets = function(res, asset, callback) {
+//example of asset = '/index.html'
+exports.serveAssets = function(response, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
+
+  var fullPath = archive.paths.siteAssets + asset;
+  console.log(fullPath);
+  fs.readFile(fullPath, callback);
 };
 
 

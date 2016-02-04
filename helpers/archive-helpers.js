@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var request = require('request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -28,6 +29,7 @@ exports.readListOfUrls = function(callback) {
   fs.readFile(exports.paths.list, function(err, data){
     if (err) throw err;
     var urls = data.toString().split('\n');
+    console.log(urls);
     callback(urls);
   });
 };
@@ -58,9 +60,15 @@ exports.isUrlArchived = function(url, callback) {
 
 exports.downloadUrls = function(urlArray) {
   _.each(urlArray, function(url) {
+    console.log('each');
     var filePath = path.join(exports.paths.archivedSites, url);
-    fs.writeFile(filePath, function(err) {
+    console.log(url);
+    var protocolUrl = 'http://' + url;
+    request(protocolUrl, function(err, response, body) {
       if (err) throw err;
+      fs.writeFile(filePath, body, function(err) {
+        if (err) throw err;
+      });
     });
   });
 };

@@ -28,8 +28,7 @@ exports.initialize = function(pathsObj) {
 exports.readListOfUrls = function(callback) {
   fs.readFile(exports.paths.list, function(err, data){
     if (err) throw err;
-    var urls = data.toString().split('\n');
-    console.log(urls);
+    var urls = data.toString().split('\n').slice(0, -1);
     callback(urls);
   });
 };
@@ -50,9 +49,6 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
   fs.readdir(exports.paths.archivedSites, function(err, files){
-
-    console.log('files:', files, 'url', url);
-    console.log(files.indexOf(url));
     if (err) throw err;
     callback(files.indexOf(url) !== -1);
   });
@@ -60,9 +56,7 @@ exports.isUrlArchived = function(url, callback) {
 
 exports.downloadUrls = function(urlArray) {
   _.each(urlArray, function(url) {
-    console.log('each');
     var filePath = path.join(exports.paths.archivedSites, url);
-    console.log(url);
     var protocolUrl = 'http://' + url;
     request(protocolUrl, function(err, response, body) {
       if (err) throw err;
@@ -70,6 +64,9 @@ exports.downloadUrls = function(urlArray) {
         if (err) throw err;
       });
     });
+  });
+  fs.writeFile(exports.paths.list, '', function(err) {
+    if (err) throw err;
   });
 };
 

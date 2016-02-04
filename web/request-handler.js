@@ -47,14 +47,8 @@ exports.handleRequest = function (request, response) {
 
     });
 
-
-
-
-
-
   } else {
     res.end(archive.paths.list);
   }
 
-  archive.readListOfUrls(archive.downloadUrls);
 };

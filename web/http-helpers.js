@@ -20,9 +20,9 @@ exports.serveAssets = function(response, asset, callback) {
   var websiteExtensions = ['.com'];
 
   if(staticExtensions.indexOf(path.extname(asset)) !== -1){
-    fullPath = archive.paths.siteAssets + asset;
+    fullPath = path.join(archive.paths.siteAssets, asset);
   }else if(websiteExtensions.indexOf(path.extname(asset)) !== -1){
-    fullPath = archive.paths.archivedSites + asset;
+    fullPath = path.join(archive.paths.archivedSites, asset);
   }
 
   console.log(fullPath);
@@ -36,7 +36,7 @@ exports.collectData = function(request, callback) {
   });
   request.on('end', function(){
     data = data.split('url=')[1];
-    callback(data + "\n");
+    callback(data);
   });
 };
 

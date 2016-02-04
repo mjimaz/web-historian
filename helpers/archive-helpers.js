@@ -22,19 +22,6 @@ exports.initialize = function(pathsObj) {
   });
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 exports.readListOfUrls = function(callback) {
@@ -58,8 +45,52 @@ exports.addUrlToList = function(url, callback) {
   });
 
 };
-// exports.isUrlArchived = function() {
-// };
 
-// exports.downloadUrls = function() {
-// };
+exports.isUrlArchived = function(url, callback) {
+  fs.readdir(exports.paths.archivedSites, function(err, files){
+    if (err) throw err;
+    callback(files.indexOf(url) !== -1);
+  });
+};
+
+exports.downloadUrls = function(urlArray) {
+  _.each(urlArray, function(url) {
+    var filePath = path.join(exports.paths.archivedSites, url);
+    fs.writeFile(filePath, function(err) {
+      if (err) throw err;
+    });
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
